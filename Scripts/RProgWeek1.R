@@ -122,6 +122,30 @@ print(x)
 nrow(x)
 ncol(x)
 
+x<- 1:3
+names(x)
+names(x) <- c("New York", "Seattle","Los Angeles")
+print(x)
+
+x <- list("Los Angeles" =1, Boston = 2, London = 3)
+print(x)
+names(x)
+#Boston and London are read as strings automatically without quotes?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
