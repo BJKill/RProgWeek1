@@ -132,9 +132,15 @@ print(x)
 names(x)
 #Boston and London are read as strings automatically without quotes?
 
+library(readr)
+library(swirl)
 
+ls()
+#list variables currently assigned
 
-
+rm(list=ls())
+ls()
+#removes assigned variables
 
 
 
