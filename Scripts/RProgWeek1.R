@@ -142,15 +142,19 @@ rm(list=ls())
 ls()
 #removes assigned variables
 
+library(readr)
+teams <- read_csv("Data/team_standings.csv")
+teams
 
+#make first and second colums character type
+teams <- read_csv("Data/team_standings.csv", col_types = "cc")
+teams
 
+logs <- read_csv("Data/2016-07-19.csv.gz", n_max = 10)
+#had error determining type of each column
 
-
-
-
-
-
-
+logs <- read_csv("Data/2016-07-19.csv.gz", col_types = "ccicccccci", n_max = 10)
+logs
 
 
 
