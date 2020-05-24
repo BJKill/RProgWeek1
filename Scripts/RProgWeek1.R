@@ -215,6 +215,48 @@ serialize(x,NULL)
 
 #benefit of serialize() is it is the only way to perfectly represent an R object in an exportable format without losing any precision or metadata
 
+#see imputs to "file()" connection funtion
+str(file)
+
+#creating connection to file
+con <- file("Data/team_standings.csv")
+#opening connection in read-only (r = read, w = write, a = appending, rb,wb,ab = all in binary)
+open(con, "r")
+#Read from the connection
+data <- read.csv(con)
+#close connection
+close(con)
+#print object
+data
+
+#ALL ABOVE DONE IN BACKGROUND OF READ.CSV()
+rm(data)
+data <- read.csv("Data/team_standings.csv")
+data
+
+
+#open connection to gz-compressed file
+con <- gzfile("Data/2016-07-19.csv.gz")
+x <- readLines(con,10)
+x
+
+x2 <- read.csv("Data/2016-07-19.csv.gz")
+x2
+
+con3 <- gzfile("Data/2016-07-19.csv.gz")
+x3 <- readLines(con3,10)
+x3
+
+##Open a URL connection for reading
+con <- url("http://www.jhsph.edu","r")
+#Read the web page
+x <- readLines(con)
+#print out the first few lines
+head(x)
+
+
+
+
 
 
 
