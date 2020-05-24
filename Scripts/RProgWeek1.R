@@ -256,6 +256,80 @@ head(x)
 
 
 
+#Section 10: Subsetting R objects
+#create a vector
+x <- c("a","b","c","c","d","a")
+x[1]   ##extracts first element
+x[2]   ##extracts second element
+x[1:4]
+x[c(3,1,5)]
+
+#next two sets accomplish same goal
+x[x>"a"]  ##extracts all elements greater than 'a'
+
+u <- x > "a"   ##creates new vector of logic whether each element in x bigger than "a"
+u
+x[u]      ##extracts all elements greater than 'a'
+
+
+x <- matrix(1:6, 2,3)
+x
+x[2,1]   ##returns (2,1) entry of matrix x AS A VECTOR LENGTH 1
+x[1,2]
+x[1, ]   ##extracts first row AS A VECTOR
+x[ ,2]   ##extracts second column AS A VECTOR
+
+#DROP = FALSE RETURNS SUBSETTED MATRCIES AS MATRICIES INSTEAD OF VECTORS
+
+x[1,2]
+x[1,2, drop = FALSE]   ##returns (2,1) entry of matrix x AS ANOTHER MATRIX
+
+x[1, ]
+x[1, , drop = FALSE]   ##returns first row AS ANOTHER MATRIX
+
+##10.3 SUBSETTING LISTS
+x <- list(foo = 1:4, bar = 0.6)
+x
+x[1]  ##returns a list because x is a list!!
+x[[1]]   ##returns only the first element in the list (vector of #s 1-4)
+x[["bar"]]   ##returns element in list with name "bar"
+x$bar        ##returns element in list with name "bar"
+x["bar"]     ##returns LIST with element named "bar" in it
+
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+x[c(1,3)]    ##extracts multiple elements from list in another list - only way to do multiple!
+
+
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+name <- "foo"
+x[[name]]    ##returns numbers 1:4 because double brackets can double-reference.
+x$name       ##returns NULL because there is no element named "name".  $ is Less versitile
+x$foo
+
+
+x <- list(a = list(10, 12, 14), b = c(3.14,2.81))
+x
+x[[c(1,3)]]   ##returns 3rd element nested in 1st element (14)
+x[[1]][[3]]   ##returns 3rd element nested in 1st element (14)
+x[[c(2,1)]]   ##returns 1st element nested in 2nd element (3.14)
+
+
+##ONLY WAY to return more than one element of a list
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+x[c(1,3)]     ##returns LIST containing first and third element in orig list bc single bracket
+
+
+##Partial matching of names in lists
+x <- list(aardvark = 1:5)
+
+x$a        ##returns element from the list with closest name to "a"
+x[["a"]]   ##returns NULL bc no element named EXACTLY 'a'
+x[["a", exact = FALSE]]    ##work
+
+
+
+
+
 
 
 
