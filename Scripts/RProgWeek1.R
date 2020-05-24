@@ -156,6 +156,64 @@ logs <- read_csv("Data/2016-07-19.csv.gz", n_max = 10)
 logs <- read_csv("Data/2016-07-19.csv.gz", col_types = "ccicccccci", n_max = 10)
 logs
 
+logs <- read_csv("Data/2016-07-19.csv.gz", col_types = "dcicccccci", n_max = 10)
+#gives error.  wasn't expecting dashes in date "2016-07-19"
+
+logs <- read_csv("Data/2016-07-19.csv.gz", col_types = "ccicccccci", n_max = 10)
+
+##Now, only read in the date variable
+logdates <- read_csv("Data/2016-07-19.csv.gz", col_types = cols_only(date = col_date()), n_max = 10)
+logdates
+
+##Now, section 8
+
+#create data frame
+y <- data.frame(a=1,b="a")
+##print "dput" output to consol
+dput(y)
+y
+
+##Send 'dput' output to a file
+dput(y, file = "Output/y.R")
+
+#read in 'dput' output from the file
+new.y <- dget("Output/y.R")
+new.y
+
+x <- "foo"
+y <- data.frame(a = 1L, b = "a")
+
+#dump() R objects to a file
+dump(c("x","y"),file = "Data/data.R")
+rm(x,y)
+
+#source() R objects back from file
+source("Data/data.R")
+str(y)
+x
+
+
+a <- data.frame(x = rnorm(100), y = runif(100))
+b <- c(3, 4.4, 1/3)
+#save objects a and b to file
+save(a, b, file = "Data/mydata.rda")
+
+rm(a,b)
+#load object a and b to the workspace
+load("Data/mydata.rda")
+a
+b
+
+rm(b)
+#Save all objects to a file
+save.image(file = "Data/mydata.Rdata")
+b
+
+#serialize an R object creates a raw vector in hexadecimal
+x <- list(1,2,3)
+serialize(x,NULL)
+
+#benefit of serialize() is it is the only way to perfectly represent an R object in an exportable format without losing any precision or metadata
 
 
 
