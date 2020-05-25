@@ -324,13 +324,143 @@ x <- list(aardvark = 1:5)
 
 x$a        ##returns element from the list with closest name to "a"
 x[["a"]]   ##returns NULL bc no element named EXACTLY 'a'
-x[["a", exact = FALSE]]    ##work
+x[["a", exact = FALSE]]    ##workaround for partial matching with double brackets
 
 
+#removing NA values
+x <- c(1, 2, NA, 4, NA, 5)
+bad <- is.na(x)
+bad        ##logical vector
+x[!bad]    ##returns elements in x that are not bad (aka NA values)
+
+y <- c("a", "b", NA, "d", NA, "f")
+good <- complete.cases(x,y)
+good
+x[good]
+y[good]
+
+u <- c(1,NA,3,4,NA,6)
+v <- c("a", "b", NA, NA, "e", "f")
+good2 <- complete.cases(u,v)
+good2
+u[good2]
+v[good2]
+
+##REMOVING NAs FROM DATASETS
+head(airquality)                       ##head() prints first 6 lines of dataset
+good <- complete.cases(airquality)     ##returns logical
+head(airquality[good, ])               ##prints first 6 lines of new dataset with good values
+
+airquality[1:6, ]
+good <- complete.cases(airquality)
+airquality[good, ][1:6, ]
+
+##VECTOR OPERATIONS
+x<- 1:4
+y<- 6:9
+z <- x+y
+z
+
+#LONG WAY OF ADDING VECTORS
+i <- 0
+z <- numeric(length(x))
+for (i in seq_along(x)) {
+  z[i] <- x[i] + y[i]
+}
+z
+
+#Vector logic
+x
+##return logical test vectors
+x > 2    
+x >= 2
+x < 3
+x == 8
+y == 8
+
+#Vectorized arithmatic
+x-y
+x*y   ##not a dot or cross product...just vecorized arithmatic
+x/y
+y/x
+
+#vectorized MATRIX operations
+x <- matrix(1:4,2,2)
+y <- matrix(rep(10,4),2,2)
+x
+y
+##element-wise multiplication
+x*y
+##element-wise division
+x/y
+##TRUE MATRIX MULTIPLICATION
+X%*%y  #error
+x
+x %*% y  #correct - need spaces before and after '%*%'
 
 
+##WEEK 1 QUIZ WORK
 
+x <- 4L
+class(x)
 
+x <- c(4, "a", TRUE)
+class(x)
 
+x <- c(1,3,5)
+y <- c(3,2,10)
+cbind(x,y)
+
+x <- list(2, "a", "b", TRUE)
+x[[1]]
+length(x)
+class(x[[1]])
+
+x<-1:4
+y<-2
+x+y
+
+x<-c(3,5,1,10,12,6)
+x[x<6] <- 0
+x
+
+x<-c(3,5,1,10,12,6)
+x[x<=5] <- 0
+x
+
+data <- read_csv("Data/hw1_data.csv")
+data
+data[c(1,2), ]
+data[c(152,153), ]
+data[47, ]
+
+col <- data$Ozone
+col
+bad <- is.na(col)
+col[bad]
+goodOzone <- col[!bad]
+mean(goodOzone)
+
+data2Log <- complete.cases(data)
+data2Log
+
+data[data2Log, ]
+data2 <- data[data2Log, ]
+data2
+
+highoz <- data2[data2$Ozone > 31, ]
+highoz
+
+both <- highoz[highoz$Temp>90, ]
+both
+mean(both$Solar.R)
+
+JuneData <- data[data$Month ==6, ]
+JuneData
+mean(JuneData$Temp)
+
+MayData <- data2[data2$Month ==5, ]
+MayData
+max(MayData$Ozone)
 
 
