@@ -464,3 +464,161 @@ MayData
 max(MayData$Ozone)
 
 
+### Swirl R Programming
+## Swirl R Programming Section 1
+5+7
+x <- 5+7
+x
+y <- x-3
+y
+z <- c(1.1, 9, 3.14)
+?c
+z
+c(z, 555, z)
+z*2 + 100
+my_sqrt <- sqrt(z-1)
+my_sqrt
+my_div <- z/my_sqrt
+my_div
+
+c(1,2,3,4) + c(0,10)
+c(1,2,3,4) + c(0,10,100)
+
+## Swirl R Programming Section 2
+getwd()
+ls()
+x <- 9
+ls()
+list.files()
+?list.files
+args(list.files)
+old.dir <- getwd()         #sets current wd to object
+
+dir.create("testdir")
+setwd("testdir")
+file.create("mytest.R")
+list.files()
+file.exists("mytest.R")
+file.info("mytest.R")
+file.info("mytest.R")$mode
+file.rename("mytest.R", "mytest2.R")
+file.copy("mytest2.R", "mytest3.R")
+file.path("mytest3.R")
+file.path("folder1", "folder2")
+?dir.create
+dir.create(file.path("testdir2","testdir3"), recursive = TRUE) #recursive for nested dirs
+setwd(old.dir)
+
+
+## Swirl R Programming Section 3
+1:20
+pi:10
+15:1
+
+?":"
+
+seq(1,20)
+seq(0,10, by = 0.5)
+my_seq <- seq(5,10, length = 30) #sequence of 30 nums bw 5 and 10
+length(my_seq)   #returns 30
+#next three commands all make sequences of 1:30
+1:length(my_seq)
+seq(along.with = my_seq)
+seq_along(my_seq)
+
+rep(0, times = 40) ##vector of 40 "0"s
+rep(c(0,1,2),times=10) ##returns [0,1,2,0,1,2,0,1,2,...]
+rep(c(0,1,2), each=10) ##returns [0,0,0...,1,1,1...,2,2,2...]
+
+
+## Swirl R Programming Section 4
+num_vect <- c(0.5,55,-10,6)  ##[0.5, 55, -10, 6]
+tf <- num_vect < 1           ##returns [T, F, T, F]
+num_vect >= 6                ##returns [F ,T ,F ,T]
+(3>5) & (4==4)               ##should return FALSE
+(TRUE == TRUE) | (TRUE == FALSE)  ##should return TRUE
+((111 >= 111) | !(TRUE)) & ((4 + 1) == 5)  ##should return TRUE
+
+my_char <- c("My", "name", "is")
+my_char
+paste(my_char, collapse = " ")
+my_name <- c(my_char, "BJKill")
+paste(my_name, collapse = " ")
+paste("Hello", "world!", sep = " ")
+paste(1:3, c("X", "Y", "Z"), sep = "")  ##returns ["1X" "2Y" "3Z"] (numericals coerced)
+paste(LETTERS, 1:4, sep = "-")
+
+
+## Swirl R Programming Section 5
+x <- c(44, NA, 5, NA)
+x*3
+y <- rnorm(1000) ##vector of 1000 random draws from standard normal
+z <- rep(NA, 1000)  ##vector of 1000 NA's
+my_data <- sample(c(y,z),100)
+my_na <- is.na(my_data)
+my_na            ##returns logical vector
+my_data == NA    ##doesn't return logical vector - sets to 100 NA's
+sum(my_na)       ##counts # of NA's bc T/F is 1/0
+my_data
+0/0              ##returns NaN
+Inf-Inf          ##returns NaN
+
+
+## Swirl R Programming Section 6
+x
+x[1:10]
+x[is.na(x)]
+
+y <- x[!is.na(x)]   ##retunrs values from x that are NOT NA
+y
+y[y>0]              ##returns values from y that are positive
+                    ##aka, y[y>0] is all positive, non-NA's from x
+
+x[x>0]              ##returns all positive and all NA's!
+
+x[!is.na(x) & x > 0] ##in one step, isolate all positive values from x that are not NA
+
+x[c(3,5,7)]         ##returns 3rd, 5th, and 7th values of x
+x[0]                ##returns 'numeric(0)' aka a numeric vector with length zero
+x[3000]             ##returns 'NA'
+x[c(-2,-10)]        ##returns all values from x EXCEPT 2nd and 10th values (neg index)
+x[-c(2,10)]         ##does same as above
+
+vect <- c(foo = 11, bar = 2, norf = NA) ##creates vector with 3 already-named objects
+vect
+names(vect)
+vect2 <- c(11,2,NA)                     ##creates vector vect2 with 3 objects
+names(vect2) <- c("foo", "bar", "norf") ##creates vector of 3 names and assignes those names to vect2
+identical(vect, vect2)                  ##tests if two things are identical
+
+vect["bar"]
+vect[c("foo", "bar")]
+
+
+##Swirl R Programming Section 7
+my_vector <- 1:20
+my_vector
+dim(my_vector)            #returns 'NULL' bc vector doesn't have dimentions
+length(my_vector)         #returns '20'
+dim(my_vector) <- c(4,5)  #assigns 4x5 dims to my_vector. By def, it's now a matrix!
+dim(my_vector)
+attributes(my_vector)
+my_vector                 #prints a 4x5 matrix of #s 1-20
+class(my_vector)
+my_matrix <- my_vector
+
+?matrix                  #matrix help file
+my_matrix2 <- matrix(1:20, nrow = 4, ncol = 5)   #prints a 4x5 matrix of #s 1-20
+identical(my_matrix,my_matrix2)
+
+patients <- c("Bill", "Gina", "Kelly", "Sean")
+cbind(patients, my_matrix)   #adds column but coerces #s in other cols to charicters
+my_data <- data.frame(patients,my_matrix)  #makes it a data frame so it can have diff object types
+my_data
+class(my_data)
+
+cnames <- c("patient","age","weight","bp","rating","test")
+colnames(my_data) <- cnames
+my_data
+
+
